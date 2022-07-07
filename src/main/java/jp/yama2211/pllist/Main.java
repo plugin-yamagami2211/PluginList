@@ -21,13 +21,15 @@ public final class Main
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
-        if (args.length == 0)
-        {
-            getConfig().set("pluginlist", getPluginList());
-            saveConfig();
+        if( (sender.hasPermission("pllist.use")) || (sender.isOp()) ){
+            if (args.length == 0)
+            {
+                getConfig().set("pluginlist", getPluginList());
+                saveConfig();
 
-            sender.sendMessage("Pluginlist Saveing!");
-            return true;
+                sender.sendMessage("Pluginlist Saveing!");
+                return true;
+            }
         }
         return false;
     }

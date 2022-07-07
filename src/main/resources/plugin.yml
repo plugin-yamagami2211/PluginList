@@ -1,9 +1,12 @@
 name: PluginList
 version: '${project.version}'
 main: jp.yama2211.pllist.Main
-api-version: 1.16
 
 commands:
   pluginlist:
     description: PluginlistSaveing
 
+permissions:
+  pllist.use:
+    description: pluginlist Cmd Pex
+    default: op
