@@ -1,16 +1,14 @@
 package jp.yama2211.pllist;
 
+import me.kaimu.haste.Hastebin;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Main
-        extends JavaPlugin
+import java.io.IOException;
+public final class Main extends JavaPlugin
 {
     public void onEnable()
     {
@@ -24,13 +22,23 @@ public final class Main
         if( (sender.hasPermission("pllist.use")) || (sender.isOp()) ){
             if (args.length == 0)
             {
+                Hastebin hastebin = new Hastebin();
+
                 getConfig().set("pluginlist", getPluginList());
                 saveConfig();
 
-                sender.sendMessage("Pluginlist Saveing!");
+                    String text = getPluginList();
+                    boolean raw = true;
+                    try{
+                        String url = hastebin.post(text,raw);
+                        sender.sendMessage("Web View Link:" + url);
+                    }catch (IOException e){
+                        sender.sendMessage("NetWork Error! or Script Error!");
+                    }
+                }
+                sender.sendMessage("PluginList Saveing!");
                 return true;
             }
-        }
         return false;
     }
 
